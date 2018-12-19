@@ -5,11 +5,8 @@
   "keywords": [],
   "main": "src/index.js",
   "dependencies": {
-    "@cycle-robot-drivers/screen": "0.0.23",
-    "@cycle/react": "2.0.0",
-    "@cycle/react-dom": "2.0.0",
-    "@cycle/run": "5.2.0",
-    "cycle-selection-driver": "1.1.1",
+    "@cycle-robot-drivers/run": "0.0.28",
+    "@cycle/dom": "22.0.0",
     "react": "16.3.2",
     "react-dom": "16.3.2",
     "react-scripts": "1.1.4",

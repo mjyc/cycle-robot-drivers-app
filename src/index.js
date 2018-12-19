@@ -1,29 +1,47 @@
-import xs from "xstream";
-import delay from "xstream/extra/delay";
-import React from "react";
-import ReactDOM from "react-dom";
-import {makeComponent} from "@cycle/react";
-import {makeTabletFaceDriver} from "@cycle-robot-drivers/screen";
+import {runRobotProgram} from '@cycle-robot-drivers/run';
+import xs from 'xstream';
+import delay from 'xstream/extra/delay';
+import {makeDOMDriver} from '@cycle/dom';
 
-function robotFace(sources) {
+
+function main(sources) {
+  const goals$ = sources.TabletFace.load.mapTo({
+    face: 'happy',
+    sound: 'https://raw.githubusercontent.com/aramadia/willow-sound/master/G/G15.ogg',
+    speechbubble: {
+      message: 'How are you?',
+      choices: ['Good', 'Bad'],
+    },
+    synthesis: 'How are you?',
+    recognition: {},
+  }).compose(delay(1000));
+
+  sources.TwoSpeechbubblesAction.result
+    .addListener({next: result => {
+      if (result.status.status === 'SUCCEEDED') {
+        console.log(`I received "${result.result}"`);
+      }
+    }});
+  sources.SpeechRecognitionAction.result
+    .addListener({next: result => {
+      if (result.status.status === 'SUCCEEDED') {
+        console.log(`I heard "${result.result}"`);
+      }
+    }});
+  sources.PoseDetection.poses
+    .addListener({next: () => {}});  // see outputs on the browser
+    
   return {
-    TabletFace:xs.of({
-      type: 'EXPRESS', value: {type: 'happy'}
-    }).compose(delay(2000)),
-    react: sources.TabletFace.react,
+    FacialExpressionAction: goals$.map(goals => goals.face),
+    TwoSpeechbubblesAction: goals$.map(goals => goals.speechbubble),
+    AudioPlayerAction: goals$.map(goals => goals.sound),
+    SpeechSynthesisAction: goals$.map(goals => goals.synthesis),
+    SpeechRecognitionAction: goals$.map(goals => goals.recognition),
+    PoseDetection: xs.of({
+      algorithm: 'single-pose',
+      singlePoseDetection: {minPoseConfidence: 0.2},
+    }),
   }
 }
 
-const RobotFace = makeComponent(robotFace, {
-  TabletFace: makeTabletFaceDriver()
-});
-
-function App(props) {
-  return (
-    <div className="app">
-      <RobotFace />
-    </div>
-  );
-}
-
-ReactDOM.render(<App />, document.getElementById("root"));
+runRobotProgram(main, {DOM: makeDOMDriver('#root')});
