@@ -5,7 +5,7 @@
   "keywords": [],
   "main": "src/index.js",
   "dependencies": {
-    "@cycle-robot-drivers/speech": "0.0.11",
+    "@cycle-robot-drivers/run": "0.0.27",
     "@cycle/react": "latest",
     "@cycle/react-dom": "latest",
     "@cycle/run": "^5.2.0",
