@@ -5,9 +5,10 @@
   "keywords": [],
   "main": "src/index.js",
   "dependencies": {
+    "@cycle-robot-drivers/speech": "0.0.11",
     "@cycle/react": "latest",
     "@cycle/react-dom": "latest",
-    "@cycle/run": "latest",
+    "@cycle/run": "^5.2.0",
     "cycle-selection-driver": "1.1.1",
     "react": "16.3.2",
     "react-dom": "16.3.2",

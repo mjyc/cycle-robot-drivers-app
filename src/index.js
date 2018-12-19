@@ -5,6 +5,14 @@ import { selectionDriver } from "cycle-selection-driver";
 import { makeComponent } from "@cycle/react";
 import { div, p, button, br } from "@cycle/react-dom";
 
+import {wrappedMain} from "./wrappedMain";
+import {
+  makeSpeechSynthesisDriver,
+  SpeechSynthesisAction,
+  makeSpeechRecognitionDriver,
+  SpeechRecognitionAction,
+} from '@cycle-robot-drivers/speech';
+
 function highlighter(sources) {
   const left = Symbol();
   const right = Symbol();
@@ -61,10 +69,16 @@ const Highlighter = makeComponent(highlighter, {
   selection: selectionDriver
 });
 
+const SpeechAction = makeComponent(wrappedMain, {
+  SpeechSynthesis: makeSpeechSynthesisDriver(),
+  SpeechRecognition: makeSpeechRecognitionDriver(),
+})
+
 function App(props) {
   return (
     <div className="app">
       <Highlighter text={"The book is on the table."} />
+      <SpeechAction />
     </div>
   );
 }
