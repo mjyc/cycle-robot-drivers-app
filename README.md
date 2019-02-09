@@ -1,4 +1,4 @@
-# cycle-robot-drivers-starter
+# cycle-robot-drivers Starter App
 
 A starter pkg for building [cycle-robot-drivers](https://github.com/mjyc/cycle-robot-drivers) apps.
 
