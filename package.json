@@ -1,22 +1,24 @@
 {
-  "name": "new",
+  "name": "cycle-robot-drivers-app",
   "version": "1.0.0",
-  "description": "",
-  "keywords": [],
+  "description": "A starter pkg for building cycle-robot-drivers apps",
   "main": "src/index.js",
   "dependencies": {
-    "@cycle-robot-drivers/run": "0.0.28",
-    "@cycle/dom": "22.0.0",
-    "react": "16.3.2",
-    "react-dom": "16.3.2",
-    "react-scripts": "1.1.4",
-    "xstream": "11.7.0"
+    "@cycle-robot-drivers/run": "^1.0.0",
+    "@cycle/dom": "22.3.0",
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0",
+    "xstream": "11.10.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "react-scripts": "2.1.8",
+    "webpack": "4.28.3"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
-  }
+  },
+  "browserslist": [">0.2%", "not dead", "not ie <= 11", "not op_mini all"]
 }
